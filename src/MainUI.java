@@ -128,27 +128,47 @@ public class MainUI {
 
                     File path = new File(deletePath.getText());
 
-                    int num = 0;
-                    int size = path.listFiles().length;
-                    int progress = new Double(100 / size).intValue();
-
                     // TODO: Allow regular expressions characters
 
-                    for (File f : path.listFiles()) {
-                        if (f.getName().contains(deleteText.getText())) {
+                    try {
 
-                            f.renameTo(new File(deletePath.getText() + File.separator + f.getName().replace(deleteText.getText(), "")));
+                        int num = 0;
+                        int size = path.listFiles().length;
+                        int progress = new Double(100 / size).intValue();
 
-                            num += progress;
-                            deleteProgress.setValue(num);
+                        for (File f : path.listFiles()) {
+                            if (f.getName().contains(deleteText.getText())) {
 
+                                f.renameTo(new File(deletePath.getText() + File.separator + f.getName().replace(deleteText.getText(), "")));
+
+                                num += progress;
+
+                                System.out.println(num+"% Percent Completed");
+
+                                deleteProgress.setValue(num);
+
+                            }
                         }
+
+
+                        deleteProgress.setValue(100);
+
+                        System.out.println("Successfully completed!!");
+
+                    }catch (NullPointerException np){
+
+                        //TODO: It Shows a warning message (folder is empty)
+
+                        System.out.println("NullPointer Exception: Selected folder is empty");
+
                     }
+
+                }else{
+
+                    //TODO: It Shows a warning message (fields are empty)
+                    System.out.println("Fields are empty");
+
                 }
-
-                deleteProgress.setValue(100);
-
-                System.out.println("Successfully completed!!");
 
             }
 
