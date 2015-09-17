@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MainUI">
-  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainUI" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="500" height="498"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <tabbedpane id="dbf71" binding="mainTabs">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="c5350" binding="deleteTab" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="c5350" binding="deleteTab" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
             <constraints>
               <tabbedpane title="Delete"/>
             </constraints>
@@ -27,92 +27,315 @@
             <children>
               <component id="abedd" class="javax.swing.JTextField" binding="deleteText">
                 <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <enabled value="true"/>
+                </properties>
               </component>
               <component id="2378c" class="javax.swing.JProgressBar" binding="deleteProgress">
                 <constraints>
-                  <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="2" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="-1" height="15"/>
+                  </grid>
                 </constraints>
                 <properties/>
               </component>
               <component id="cc761" class="javax.swing.JLabel" binding="deleteTextLabel">
                 <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <labelFor value="625a4"/>
-                  <text value="Text to be deleted: "/>
+                  <text value="&amp;Text to be deleted: "/>
+                  <verticalAlignment value="3"/>
+                  <verticalTextPosition value="3"/>
                 </properties>
               </component>
               <component id="625a4" class="javax.swing.JTextField" binding="deletePath">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                  <horizontalAlignment value="10"/>
+                </properties>
               </component>
               <component id="e47a" class="javax.swing.JButton" binding="deleteActionButton">
                 <constraints>
-                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="75" height="-1"/>
+                    <preferred-size width="75" height="-1"/>
+                    <maximum-size width="75" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
-                  <text value="Delete!"/>
+                  <alignmentY value="0.5"/>
+                  <margin top="2" left="14" bottom="2" right="14"/>
+                  <text value="&amp;Delete!"/>
+                  <toolTipText value="Delete text for every filename in selected folder"/>
                 </properties>
               </component>
               <component id="30e9b" class="javax.swing.JLabel" binding="deletePathLabel">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <labelFor value="abedd"/>
-                  <text value="Files path: "/>
+                  <text value="&amp;Files path: "/>
+                  <toolTipText value=""/>
+                  <verticalAlignment value="0"/>
+                  <verticalTextPosition value="0"/>
                 </properties>
               </component>
               <component id="5cb27" class="javax.swing.JButton" binding="deleteSelectButton">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="75" height="-1"/>
+                    <preferred-size width="75" height="-1"/>
+                    <maximum-size width="75" height="-1"/>
+                  </grid>
                 </constraints>
                 <properties>
-                  <text value="Select"/>
+                  <text value="&amp;Select"/>
+                  <toolTipText value="Select files location"/>
                 </properties>
               </component>
+              <vspacer id="acf83">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
             </children>
           </grid>
-          <grid id="d52ac" binding="insertTab" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="d52ac" binding="insertTab" layout-manager="GridLayoutManager" row-count="9" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
             <constraints>
               <tabbedpane title="Insert"/>
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="f0c81" class="javax.swing.JButton" binding="insertActionButton">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="75" height="-1"/>
+                    <preferred-size width="75" height="-1"/>
+                    <maximum-size width="75" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="&amp;Insert!"/>
+                  <toolTipText value="Insert text into filenames from selected location"/>
+                </properties>
+              </component>
+              <component id="ea168" class="javax.swing.JButton" binding="insertSelectButton">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="75" height="-1"/>
+                    <preferred-size width="75" height="-1"/>
+                    <maximum-size width="75" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="&amp;Select"/>
+                  <toolTipText value="Select files location"/>
+                </properties>
+              </component>
+              <component id="b45d8" class="javax.swing.JTextField" binding="insertPath">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                </properties>
+              </component>
+              <component id="5276b" class="javax.swing.JLabel" binding="insertPathLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="b45d8"/>
+                  <text value="&amp;Files path:"/>
+                </properties>
+              </component>
+              <component id="efa32" class="javax.swing.JLabel" binding="insertTextLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="1cd14"/>
+                  <text value="&amp;Text to be inserted: "/>
+                </properties>
+              </component>
+              <component id="1cd14" class="javax.swing.JTextField" binding="insertText">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="c81d" class="javax.swing.JProgressBar" binding="insertProgress">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="605b0" class="javax.swing.JRadioButton" binding="insertBeginning">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Insert at the &amp;beginning"/>
+                </properties>
+              </component>
+              <component id="55dac" class="javax.swing.JRadioButton" binding="insertEnd">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Insert at the &amp;end"/>
+                </properties>
+              </component>
+              <component id="241d1" class="javax.swing.JRadioButton" binding="insertFrom">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Insert &amp;from"/>
+                </properties>
+              </component>
+              <component id="a79a8" class="javax.swing.JSpinner" binding="insertColumn">
+                <constraints>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <toolTipText value="Choose column to insert text"/>
+                </properties>
+              </component>
+              <vspacer id="ad837">
+                <constraints>
+                  <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
           </grid>
-          <grid id="b9abc" binding="countTab" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="b9abc" binding="countTab" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
             <constraints>
               <tabbedpane title="Count"/>
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="49205" class="javax.swing.JLabel" binding="countPathLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="60726"/>
+                  <text value="&amp;Files path:"/>
+                </properties>
+              </component>
+              <component id="e5273" class="javax.swing.JProgressBar" binding="countProgress">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="60726" class="javax.swing.JTextField" binding="countPath">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                </properties>
+              </component>
+              <component id="8924d" class="javax.swing.JButton" binding="countSelectButton">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="75" height="-1"/>
+                    <preferred-size width="75" height="-1"/>
+                    <maximum-size width="75" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="&amp;Select"/>
+                  <toolTipText value="Select files location"/>
+                </properties>
+              </component>
+              <component id="55f5a" class="javax.swing.JButton" binding="countActionButton">
+                <constraints>
+                  <grid row="3" column="1" row-span="3" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="75" height="-1"/>
+                    <preferred-size width="75" height="-1"/>
+                    <maximum-size width="75" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="&amp;Count!"/>
+                  <toolTipText value="Insert count number in filenames from selected location"/>
+                </properties>
+              </component>
+              <component id="fb3c8" class="javax.swing.JLabel" binding="countTypesLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Select count type:"/>
+                </properties>
+              </component>
+              <component id="3fffd" class="javax.swing.JRadioButton" binding="countType1">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&amp;NN. (01. 02. 03. ...)"/>
+                </properties>
+              </component>
+              <component id="a1b9c" class="javax.swing.JRadioButton" binding="countType2">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&amp;NN- (01- 02- 03- ...)"/>
+                </properties>
+              </component>
+              <component id="ea119" class="javax.swing.JRadioButton" binding="countType3">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&amp;NN  (01 02 03 ...)"/>
+                </properties>
+              </component>
+              <vspacer id="3922b">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
           </grid>
         </children>
       </tabbedpane>
-      <toolbar id="2b83c" binding="mainMenu">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="-1" height="20"/>
-          </grid>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </toolbar>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="insertOptionsGroup">
+      <member id="605b0"/>
+      <member id="55dac"/>
+      <member id="241d1"/>
+    </group>
+    <group name="countOptionsGroup">
+      <member id="3fffd"/>
+      <member id="a1b9c"/>
+      <member id="ea119"/>
+    </group>
+  </buttonGroups>
 </form>

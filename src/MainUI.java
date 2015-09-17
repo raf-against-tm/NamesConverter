@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
@@ -8,13 +7,25 @@ import java.io.File;
  */
 public class MainUI {
 
-    private JFrame mainUI;
+    // Constants
+    final int NOTCHECKED = 0;
 
-    private JToolBar mainMenu;
-    private JMenuBar menuBar;
-    private JTabbedPane mainTabs;
+    // - Insert Options
+    final int BEGINNING  = 1;
+    final int END = 2;
+    final int FROM = 3;
+
+    // - Count Options
+    final int POINT = 1;
+    final int HYPHEN = 2;
+    final int SPACE = 3;
+
+    // Containers
+    private JFrame appUI;
+    private JPanel mainUI;
 
     // Tabs
+    private JTabbedPane mainTabs;
     private JPanel deleteTab;
     private JPanel insertTab;
     private JPanel countTab;
@@ -24,28 +35,61 @@ public class MainUI {
     private JTextField deleteText;
     private JProgressBar deleteProgress;
 
+    private JTextField insertPath;
+    private JTextField insertText;
+    private JProgressBar insertProgress;
+    private JSpinner insertColumn;
+
+    private JTextField countPath;
+    private JProgressBar countProgress;
+
     // Labels
     private JLabel deletePathLabel;
     private JLabel deleteTextLabel;
+    private JLabel insertPathLabel;
+    private JLabel insertTextLabel;
+    private JLabel countPathLabel;
+    private JLabel countTypesLabel;
 
     // Buttons
     private JButton deleteSelectButton;
     private JButton deleteActionButton;
+
+    private JButton insertSelectButton;
+    private JButton insertActionButton;
+
+    private JButton countSelectButton;
+    private JButton countActionButton;
+
+    // Radio Buttons
+    private JRadioButton insertBeginning;
+    private JRadioButton insertEnd;
+    private JRadioButton insertFrom;
+
+    private JRadioButton countType1;
+    private JRadioButton countType2;
+    private JRadioButton countType3;
+
+    // Useful vars
+    private int insertOption = NOTCHECKED;
+    private int countOption = NOTCHECKED;
+
 
     /**
      * Build UI
      */
     public MainUI() {
 
-        // Main Window
-        mainUI= new JFrame();
-        mainUI.setTitle("Names Converter 1.0");
-        mainUI.setBounds(100, 100, 618, 389);
-        mainUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Main UI Container
+        appUI = new JFrame();
+        appUI.setTitle("Names Converter 1.2");
+        appUI.setBounds(100, 100, 640, 350);
+        appUI.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        appUI.add(mainUI);
 
-        // Menu Bar
-        menuBar = new JMenuBar();
-        mainUI.setJMenuBar(menuBar);
+        // Build menu bar
+        JMenuBar menuBar = new JMenuBar();
+        appUI.setJMenuBar(menuBar);
 
         // - Menu Option: File
         JMenu mFile = new JMenu("File");
@@ -65,61 +109,27 @@ public class MainUI {
         JMenu mHelp = new JMenu("Help");
         menuBar.add(mHelp);
 
-        // Option Items
+        // -- Option Items
         JMenuItem itemAbout = new JMenuItem("About...");
         itemAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(mainUI, "Eggs are not supposed to be green.");
+                JOptionPane.showMessageDialog(appUI, "Eggs are not supposed to be green.");
             }
         });
 
         mHelp.add(itemAbout);
 
         // Tabs
-        //mainTabs = new JTabbedPane(JTabbedPane.TOP);
-
-        GroupLayout groupLayout = new GroupLayout(mainUI.getContentPane());
-        groupLayout.setHorizontalGroup(
-                groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(groupLayout.createSequentialGroup()
-                                .addGap(5)
-                                .addComponent(mainTabs, GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-                                .addGap(5))
-        );
-        groupLayout.setVerticalGroup(
-                groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(groupLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(mainTabs, GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-                                .addContainerGap())
-        );
-
         // - Delete Tab
-        //deleteTab = new JPanel();
-        //mainTabs.addTab("Delete", null, deleteTab, null);
-
-        //deletePath = new JTextField();
-        deletePath.setEditable(false);
-        deletePath.setColumns(10);
-
-        //deleteText = new JTextField();
-        deleteText.setColumns(10);
-
-        //deletePathLabel = new JLabel("Files Path: ");
-        //deleteTextLabel = new JLabel("Text to be deleted: ");
-
-        //deleteSelectButton = new JButton("Select");
         deleteSelectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MainUI.selectPath(deletePath);
             }
         });
 
-        //deleteActionButton = new JButton("Delete");
         deleteActionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                //deleteProgress = new JProgressBar(0, 100);
                 deleteProgress.setValue(0);
                 deleteProgress.setStringPainted(true);
 
@@ -130,43 +140,34 @@ public class MainUI {
 
                     // TODO: Allow regular expressions characters
 
-                    try {
+                    int num = 0;
+                    int size = path.listFiles().length;
+                    int progress = new Double(100 / size).intValue();
 
-                        int num = 0;
-                        int size = path.listFiles().length;
-                        int progress = new Double(100 / size).intValue();
+                    for (File f : path.listFiles()) {
+                        if (f.getName().contains(deleteText.getText())) {
 
-                        for (File f : path.listFiles()) {
-                            if (f.getName().contains(deleteText.getText())) {
+                            f.renameTo(new File(deletePath.getText() + File.separator + f.getName().replace(deleteText.getText(), "")));
 
-                                f.renameTo(new File(deletePath.getText() + File.separator + f.getName().replace(deleteText.getText(), "")));
+                            num += progress;
 
-                                num += progress;
+                            System.out.println(num + "% Percent Completed");
 
-                                System.out.println(num+"% Percent Completed");
+                            deleteProgress.setValue(num);
 
-                                deleteProgress.setValue(num);
-
-                            }
                         }
-
-
-                        deleteProgress.setValue(100);
-
-                        System.out.println("Successfully completed!!");
-
-                    }catch (NullPointerException np){
-
-                        //TODO: It Shows a warning message (folder is empty)
-
-                        System.out.println("NullPointer Exception: Selected folder is empty");
-
                     }
 
-                }else{
 
-                    //TODO: It Shows a warning message (fields are empty)
+                    deleteProgress.setValue(100);
+
+                    System.out.println("Successfully completed!!");
+
+
+                } else {
+
                     System.out.println("Fields are empty");
+                    JOptionPane.showMessageDialog(appUI, "Fields cannot be blank");
 
                 }
 
@@ -174,58 +175,246 @@ public class MainUI {
 
         });
 
-        GroupLayout glDeleteTab = new GroupLayout(deleteTab);
-        glDeleteTab.setHorizontalGroup(
-                glDeleteTab.createParallelGroup(GroupLayout.Alignment.LEADING)
-                       .addGroup(glDeleteTab.createSequentialGroup()
-                               .addGap(26)
-                               .addGroup(glDeleteTab.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                       .addComponent(deleteTextLabel)
-                                       .addGroup(glDeleteTab.createSequentialGroup()
-                                               .addGroup(glDeleteTab.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                                                       .addComponent(deleteProgress, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                       .addComponent(deletePathLabel, GroupLayout.Alignment.LEADING)
-                                                       .addComponent(deletePath, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                                                       .addComponent(deleteText, GroupLayout.Alignment.LEADING))
-                                               .addGap(18)
-                                               .addGroup(glDeleteTab.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                       .addComponent(deleteSelectButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                       .addComponent(deleteActionButton, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))))
-                               .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        glDeleteTab.setVerticalGroup(
-                glDeleteTab.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(glDeleteTab.createSequentialGroup()
-                                .addGap(32)
-                                .addComponent(deletePathLabel)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(glDeleteTab.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(deletePath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(deleteSelectButton))
-                                .addGap(18)
-                                .addComponent(deleteTextLabel)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(glDeleteTab.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(deleteText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(deleteActionButton))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                                .addComponent(deleteProgress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-        );
-
-        deleteTab.setLayout(glDeleteTab);
-
         // - Insert Tab
-        //insertTab = new JPanel();
-        //mainTabs.addTab("Insert", null, insertTab, null);
+        insertBeginning.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                insertEnd.setSelected(false);
+                insertFrom.setSelected(false);
+                insertOption = BEGINNING;
+                insertColumn.setEnabled(false);
+            }
+        });
+
+        insertEnd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertBeginning.setSelected(false);
+                insertFrom.setSelected(false);
+                insertOption = END;
+                insertColumn.setEnabled(false);
+            }
+        });
+
+        insertFrom.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertBeginning.setSelected(false);
+                insertEnd.setSelected(false);
+                insertOption = FROM;
+                insertColumn.setEnabled(true);
+            }
+        });
+
+        insertSelectButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                MainUI.selectPath(insertPath);
+            }
+        });
+
+        insertActionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                insertProgress.setValue(0);
+                insertProgress.setStringPainted(true);
+
+                if (!"".equals(insertPath.getText()) && !"".equals(insertText.getText())) {
+
+                    File directory = new File(insertPath.getText());
+
+                    int num = 0;
+                    int size = directory.listFiles().length;
+                    int progress = new Double(100 / size).intValue();
+
+                    switch (insertOption) {
+
+                        case NOTCHECKED:
+                            System.out.println("No option selected");
+                            JOptionPane.showMessageDialog(appUI, "Please select an option");
+
+                            break;
+
+                        case BEGINNING:
+
+                            for (File f : directory.listFiles()) {
+
+                                String name = f.getName();
+                                f.renameTo(new File(insertPath.getText() + File.separator + f.getName().replace(name, insertText.getText() + name)));
+                                num += progress;
+                                insertProgress.setValue(num);
+
+                            }
+
+                            insertProgress.setValue(100);
+                            System.out.println("Successfully completed!!");
+
+                            break;
+
+                        case END:
+
+                            for (File f : directory.listFiles()) {
+
+                                String name = f.getName().substring(0, f.getName().lastIndexOf("."));
+                                f.renameTo(new File(insertPath.getText() + File.separator + f.getName().replace(name, name + insertText.getText())));
+                                num += progress;
+                                insertProgress.setValue(num);
+
+                            }
+
+                            insertProgress.setValue(100);
+                            System.out.println("Successfully completed!!");
+
+                            break;
+
+                        case FROM:
+
+                            for (File f : directory.listFiles()) {
+
+                                if ((Integer) insertColumn.getValue() > f.getName().length()) {
+
+                                    insertColumn.setValue(f.getName().length());
+
+                                }
+
+                                String name1 = f.getName().substring(0, (Integer) insertColumn.getValue());
+                                String name2 = f.getName().substring((Integer) insertColumn.getValue());
+                                String completeName = f.getName();
+
+                                f.renameTo(new File(insertPath.getText() + File.separator + f.getName().replace(completeName, name1 + insertText.getText() + name2)));
+                                num = +progress;
+                                insertProgress.setValue(num);
+
+                            }
+
+                            insertProgress.setValue(100);
+                            System.out.println("Successfully completed!!");
+
+                            break;
+                    }
+
+                } else {
+
+                    System.out.println("Fields are empty");
+                    JOptionPane.showMessageDialog(appUI, "Fields cannot be blank");
+
+                }
+
+            }
+        });
 
         // - Count Tab
-        //countTab = new JPanel();
-        //mainTabs.addTab("Count", null, countTab, null);
+        countType1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                countType2.setSelected(false);
+                countType3.setSelected(false);
+                countOption = POINT; // NN. (01. 02. 03. ...)
+                System.out.println("Option POINT selected");
 
+            }
+        });
 
-        mainUI.getContentPane().setLayout(groupLayout);
+        countType2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                countType1.setSelected(false);
+                countType3.setSelected(false);
+                countOption = HYPHEN; // NN- (01- 02- 03- ...)
+                System.out.println("Option HYPHEN selected");
+
+            }
+        });
+
+        countType3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                countType1.setSelected(false);
+                countType2.setSelected(false);
+                countOption = SPACE; // NN (01 02 03 ...)
+                System.out.println("Option SPACE selected");
+
+            }
+        });
+
+        countSelectButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                MainUI.selectPath(countPath);
+            }
+        });
+
+        countActionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                countProgress.setValue(0);
+                countProgress.setStringPainted(true);
+
+                if (!"".equals(countPath.getText())) {
+
+                    File directory = new File(countPath.getText());
+
+                    int num = 0;
+                    int size = directory.listFiles().length;
+                    int progress = new Double(100 / size).intValue();
+
+                    int count = 1;
+                    String countText;
+                    String separator = "";
+
+                    switch (countOption) {
+
+                        case NOTCHECKED:
+                            System.out.println("No option selected");
+                            JOptionPane.showMessageDialog(appUI, "Please select an option");
+
+                            break;
+
+                        case POINT:
+                            System.out.println("Option POINT used");
+                            separator = ".";
+
+                            break;
+
+                        case HYPHEN:
+                            System.out.println("Option HYPHEN used");
+                            separator = "-";
+
+                            break;
+
+                        case SPACE:
+                            System.out.println("Option SPACE used");
+                            separator = " ";
+
+                            break;
+
+                    }
+
+                    // If there is an option selected
+                    if(countOption != NOTCHECKED) {
+                        for (File f : directory.listFiles()) {
+
+                            if (count < 9) {
+                                countText = "0" + count + separator;
+                            } else {
+                                countText = count + separator;
+                            }
+
+                            String name = f.getName();
+                            f.renameTo(new File(countPath.getText() + File.separator + f.getName().replace(name, countText + name)));
+                            num += progress;
+                            countProgress.setValue(num);
+
+                            count++;
+
+                        }
+
+                        countProgress.setValue(100);
+                        System.out.println("Successfully completed!! " + (count - 1) + " Files.");
+
+                    }
+
+                } else {
+
+                    System.out.println("Fields are empty");
+                    JOptionPane.showMessageDialog(appUI, "Fields cannot be blank");
+
+                }
+
+            }
+        });
 
     }
 
@@ -256,27 +445,11 @@ public class MainUI {
     }
 
     /**
-     * Launch app
-     * @param args
+     * It returns App UI
+     * @return JFrame
      */
-    public static void main(String[] args) {
-
-        try{
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en el Look and Feel: " + e.getMessage() + JOptionPane.ERROR_MESSAGE);
-        }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MainUI window = new MainUI();
-                    window.mainUI.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-
+    public JFrame getAppUI(){
+        return appUI;
     }
+
 }
